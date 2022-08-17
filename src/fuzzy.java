@@ -66,8 +66,6 @@ public class fuzzy {
         for (int x = 0; x < totalData; x++) {
             for (int j = 0; j < clusterTotal; j++) {
                 clusterResult[x][j] = clusterMove[x][j] / clusterRandResult[x];
-
-                //System.out.print(clusterResult[x][j]+" ");
             }
             //System.out.println();
         }
@@ -102,8 +100,7 @@ public class fuzzy {
         for (int x = 0; x < iTD; x++) {
             for (int j = 0; j < iCT; j++) {
                 randomValueAfterPow[x][j] = Math.pow(randomValueCluster[x][j],weight);
-                //System.out.print(randomValueCluster[x][j]+"|");
-                //System.out.print(randomValueAfterPow[x][j] +"|");
+
             }
             // System.out.println();
         }
@@ -148,12 +145,6 @@ public class fuzzy {
             }
             for (int j = 0; j < parameter[1].length; j++) {
                 miuKuadratX1[x][j] = randomValueRotate[y][j] * parameter[z][j];
-                /*miuKuadratX1[1][j] = randomValueRotate[0][j] * parameter[1][j];
-                miuKuadratX1[2][j] = randomValueRotate[1][j] * parameter[0][j];
-                miuKuadratX1[3][j] = randomValueRotate[1][j] * parameter[1][j];
-                miuKuadratX1[4][j] = randomValueRotate[2][j] * parameter[0][j];
-                miuKuadratX1[5][j] = randomValueRotate[2][j] * parameter[1][j];*/
-                //System.out.println("x = "+x+" y = "+y+ " z = "+z+" j = "+j);
                 System.out.print(miuKuadratX1[x][j]);
             }
             System.out.println();
@@ -171,32 +162,16 @@ public class fuzzy {
         return miuKuadratX1;
     }
 
-    public static void main( String [] args) {
-        //input random bound and divide
+    public double[][] miuKuadratUntilProcessNewMember(int iCP,int iBP,double parameter[][],int iTD,int iCT,int weight,double totalRandomValueRotate[][],
+                                                       double randomValueRotate[][],double totalMiuKuadrat[][], double clusterCenter[][],int iCT2,
+                                                       double X_V[][][],double X_V_2[][],double L[][],double totalL[][],double fungsiObjectif,
+                                                       double LT[][],double totalLT[][],double newMember[][],double totalNewMember[][]) {
+
         fuzzy a = new fuzzy();
 
-        //inputColumnParameter
-        //int iCP = 2;
-        //inputBarisParameter
-        int iBP = 8;
-        //inputKuadrat
-        int weight = 2;
-
-        //inputClusterTotal and inputTotalData must be same with BarisParameter
-        //this is for randomMethod
-        int iCT = 3;
-        int iTD = iBP;
-
-        double[][] parameter = {{1,3,4,5,1,4,1,2},{3,3,3,3,2,2,1,1}};
-        //inputColumnParameter
-        int iCP = parameter.length;
-        double[][] parameterN = {{1,3,4,5,1,4,1,2},{3,3,3,3,2,2,1,1},{3,3,3,3,2,2,1,1}};
-
-        double[][] randomValueRotate = a.randomValueRotateAfterPow(iCT,iBP,iCP,parameter,iTD,weight);
+        double[][] miuKuadratX1 = a.miuKuadratX1(iCP,iBP,parameter,iTD,iCT,weight);
 
         System.out.println("===================totalRandomValueRotate=====================");
-        int elementTotal = 1;
-        double[][] totalRandomValueRotate = new double[iCT][elementTotal];
 
         for (int x = 0; x < iCT; x++) {
             for (int j = 0; j < iTD; j++) {
@@ -206,17 +181,6 @@ public class fuzzy {
             System.out.print("==============");
         }
 
-        //Miu Kuadrat X1
-        int iCT2 = iCT*iCP;
-        double[][] miuKuadratX1 = new double[iCT2][iTD];
-
-        //Total Miu Kuadrat
-        int totalElement = 1;
-
-        //for result Total Total Miu Kuadrat X
-        double[][] totalMiuKuadrat = new double[iCT2][totalElement];
-
-        miuKuadratX1 = a.miuKuadratX1(iCP,iBP,parameter,iTD,iCT,weight);
 
         System.out.println("====================== result Total Total Miu Kuadrat X ==========================");
         for (int x = 0; x < iCT2; x++) {
@@ -229,11 +193,7 @@ public class fuzzy {
             System.out.print("===============");
         }
 
-
         System.out.println("=====================Pusat Cluster/Cluster Center===================");
-
-        //for Pusat Cluster / Cluster Center
-        double[][] clusterCenter = new double[iCT][parameter[1].length];
 
         System.out.println(parameter.length+" "+parameter[0].length+" "+parameter[1].length);
 
@@ -241,56 +201,20 @@ public class fuzzy {
         for (int x = 0; x < iCT; x++) {
             for (int j = 0; j < parameter.length; j++) {
                 clusterCenter[x][j] =  totalMiuKuadrat[yy][0] / totalRandomValueRotate[x][0];
-              /*  clusterCenter[0][1] =  totalMiuKuadrat[1][0] / totalRandomValueRotate[0][0];
-                clusterCenter[1][0] =  totalMiuKuadrat[2][0] / totalRandomValueRotate[1][0];
-                clusterCenter[1][1] =  totalMiuKuadrat[3][0] / totalRandomValueRotate[1][0];
-                clusterCenter[2][0] =  totalMiuKuadrat[4][0] / totalRandomValueRotate[2][0];
-                clusterCenter[2][1] =  totalMiuKuadrat[5][0] / totalRandomValueRotate[2][0];*/
                 System.out.println("| x = "+x+" j = "+j+ " y = "+yy+"| center =" + clusterCenter[x][j]);
                 yy++;
             }
             System.out.println();
         }
 
-
-
         System.out.println("================================X_V================================");
 
-        //for X_V
-        double[][][] X_V = new double[parameter.length][iCT][parameter[1].length];
         //int weight = 2;
 
         for (int y = 0; y < parameter.length; y++) {
             for (int x = 0; x < iCT; x++) {
                 for (int j = 0; j < parameter[1].length; j++) {
-                    X_V[y][x][j] = Math.pow((parameter[y][j] - clusterCenter[x][y]),weight);
-
-                    //X_V[0][0][0] = Math.pow((parameter[0][0] - clusterCenter[0][0]),weight);
-                    //X_V[0][0][1] = Math.pow((parameter[0][1] - clusterCenter[0][0]),weight);
-                    //X_V[0][0][2] = Math.pow((parameter[0][2] - clusterCenter[0][0]),weight);
-                    //X_V[0][0][3] = Math.pow((parameter[0][3] - clusterCenter[0][0]),weight);
-                    //X_V[0][0][4] = Math.pow((parameter[0][4] - clusterCenter[0][0]),weight);
-                    //X_V[0][0][5] = Math.pow((parameter[0][5] - clusterCenter[0][0]),weight);
-                    //X_V[0][0][6] = Math.pow((parameter[0][6] - clusterCenter[0][0]),weight);
-                    //X_V[0][0][7] = Math.pow((parameter[0][7] - clusterCenter[0][0]),weight);
-                    //X_V[0][0][8] = Math.pow((parameter[0][8] - clusterCenter[0][0]),weight);
-
-
-
-                    //X_V[0][1][0] = Math.pow((parameter[0][0] - clusterCenter[1][0]),weight);
-                    //X_V[0][1][1] = Math.pow((parameter[0][1] - clusterCenter[1][0]),weight);
-                    //X_V[0][1][2] = Math.pow((parameter[0][2] - clusterCenter[1][0]),weight);
-                    //X_V[0][1][3] = Math.pow((parameter[0][3] - clusterCenter[1][0]),weight);
-                    //X_V[0][1][4] = Math.pow((parameter[0][4] - clusterCenter[1][0]),weight);
-                    //X_V[0][1][5] = Math.pow((parameter[0][5] - clusterCenter[1][0]),weight);
-                    //X_V[0][1][6] = Math.pow((parameter[0][6] - clusterCenter[1][0]),weight);
-                    //X_V[0][1][7] = Math.pow((parameter[0][7] - clusterCenter[1][0]),weight);
-                    //X_V[0][1][8] = Math.pow((parameter[0][8] - clusterCenter[1][0]),weight);
-
-                    /*X_V[x][j] = Math.pow((parameter[y][j] - clusterCenter[x][y]),weight)+Math.pow((parameter[1][j] - clusterCenter[x][1]),weight);
-                    X_V[1][j] = Math.pow((parameter[0][j] - clusterCenter[1][0]),weight)+Math.pow((parameter[1][j] - clusterCenter[1][1]),weight);
-                    X_V[2][j] = Math.pow((parameter[0][j] - clusterCenter[2][0]),weight)+Math.pow((parameter[1][j] - clusterCenter[2][1]),weight);*/
-
+                    X_V[y][x][j] = Math.pow((parameter[y][j] - clusterCenter[x][y]),2);//must be check use weight or just use value 2
                     System.out.println("X_V["+ y +"]["+ x +"]["+ j +"] = "+X_V[y][x][j]);
                 }
                 System.out.println();
@@ -300,8 +224,6 @@ public class fuzzy {
 
         System.out.println("==================================X_V_BAWAH=========================================");
 
-        //for X_V_BAWAH
-        double[][] X_V_2 = new double[iCT][parameter[1].length];
 
         for (int y = 0; y < parameter.length; y++) {
             for (int x = 0; x < iCT; x++) {
@@ -315,7 +237,6 @@ public class fuzzy {
             System.out.println();
         }
 
-
         System.out.println("================================total result from X_V_2=======================================");
 
         for (int x = 0; x < iCT; x++) {
@@ -327,12 +248,6 @@ public class fuzzy {
 
         System.out.println("==============================L===============================");
 
-        //double[][] randomValueRotate = a.randomValueRotateAfterPow(iCT,iBP,iCP,parameter,iTD,weight);
-
-        //for L
-        double[][] L = new double[iCT][parameter[1].length];
-
-
         for (int x = 0; x < iCT; x++) {
             for (int j = 0; j < parameter[1].length; j++) {
                 L[x][j] = X_V_2[x][j] * randomValueRotate[x][j];
@@ -343,8 +258,6 @@ public class fuzzy {
 
         System.out.println("===========================TOTAL L==========================");
 
-        //for TOTAL L
-        double[][] totalL = new double[1][parameter[1].length];
 
         for (int x = 0;x < iCT;x++) {
             for (int j = 0; j < parameter[1].length; j++) {
@@ -357,18 +270,16 @@ public class fuzzy {
 
         System.out.println("=======================Fungsi Objective=======================");
 
-        //for Fungsi Objective
-        double fungsiObjectif = 0.0;
+
 
         for (int x = 0;x < parameter[1].length;x++) {
-           fungsiObjectif += totalL[0][x];
+            fungsiObjectif += totalL[0][x];
             System.out.println("fungsi objectif = "+fungsiObjectif);
         }
 
         System.out.println("==============================LT==============================");
 
-        //for LT
-        double[][] LT = new double[iCT][parameter[1].length];
+
 
         for (int x = 0; x < iCT; x++) {
             for (int j = 0; j < parameter[1].length; j++) {
@@ -381,8 +292,6 @@ public class fuzzy {
 
         System.out.println("=============================TOTAL LT============================");
 
-        //for TOTAL LT
-        double[][] totalLT = new double[1][parameter[1].length];
 
         for (int x = 0; x < iCT; x++) {
             for (int j = 0; j < parameter[1].length; j++) {
@@ -395,8 +304,6 @@ public class fuzzy {
 
         System.out.println("=============================NEW MEMBER/KEANGGOTAAN BARU==============================");
 
-        //for NEW MEMBER/KEANGGOTAAN BARU
-        double[][] newMember = new double[iCT][parameter[1].length];
 
         for (int x = 0; x < iCT; x++) {
             for (int j = 0; j < parameter[1].length; j++) {
@@ -409,9 +316,6 @@ public class fuzzy {
 
         System.out.println("============================TOTAL NEW MEMBER==========================");
 
-        //for TOTAL NEW MEMBER
-        double[][] totalNewMember = new double[1][parameter[1].length];
-
         for (int x = 0 ; x < iCT; x++) {
             for (int j =  0; j < parameter[1].length; j++) {
                 totalNewMember[0][j] += newMember[x][j];
@@ -421,16 +325,90 @@ public class fuzzy {
             System.out.println();
         }
 
-
+        return newMember;
     }
 
 
+    public static void main( String [] args) {
+        //input random bound and divide
+        fuzzy a = new fuzzy();
+
+        //inputColumnParameter
+        //int iCP = 2;
+
+        //inputKuadrat
+        int weight = 2;
+
+        double[][] parameter = {{1,3,4,5,1,4,1,2,4},{3,3,3,3,2,2,1,1,4}};
+        //inputColumnParameter
+        int iCP = parameter.length;
+        //inputBarisParameter
+        int iBP = parameter[1].length;
+        //inputClusterTotal and inputTotalData must be same with BarisParameter
+        //this is for randomMethod
+        int iCT = 3;
+        int iTD = iBP;
+        double[][] parameterN = {{1,3,4,5,1,4,1,2},{3,3,3,3,2,2,1,1},{3,3,3,3,2,2,1,1}};
+
+
+        //for Pusat Cluster / Cluster Center
+        double[][] clusterCenter = new double[iCT][parameter[1].length];
+
+        //for X_V
+        double[][][] X_V = new double[parameter.length][iCT][parameter[1].length];
+
+        //for X_V_BAWAH
+        double[][] X_V_2 = new double[iCT][parameter[1].length];
+
+        //for L
+        double[][] L = new double[iCT][parameter[1].length];
+
+        //for TOTAL L
+        double[][] totalL = new double[1][parameter[1].length];
+
+        //for Fungsi Objective
+        double fungsiObjectif = 0.0;
+
+        //for FO Iteration
+        double fungsiObjectifIteration = 0.0;
+        fungsiObjectifIteration = fungsiObjectifIteration - fungsiObjectif;
+
+        //for LT
+        double[][] LT = new double[iCT][parameter[1].length];
+
+        //for TOTAL LT
+        double[][] totalLT = new double[1][parameter[1].length];
+
+        //for NEW MEMBER/KEANGGOTAAN BARU
+        double[][] newMember = new double[iCT][parameter[1].length];
+
+        //for TOTAL NEW MEMBER
+        double[][] totalNewMember = new double[1][parameter[1].length];
+
+        //total Random Value Rotate
+        double[][] totalRandomValueRotate = new double[iCT][1];
+
+        //inputIteration
+        int inputIteration = 3;
+
+        //Miu Kuadrat X1
+        int iCT2 = iCT*iCP;
+
+        //for result Total Total Miu Kuadrat X
+        double[][] totalMiuKuadrat = new double[iCT2][1];
+
+        //
+        double [][] clusterMove = new double[iBP][iCT];
+
+        double[][] randomValueRotate = a.randomValueRotateAfterPow(iCT,iBP,iCP,parameter,iTD,weight);
 
 
 
+        double[][] newMemberIteration = a.miuKuadratUntilProcessNewMember(iCP,iBP,parameter,iTD,iCT,weight,totalRandomValueRotate,
+                randomValueRotate,totalMiuKuadrat,clusterCenter,iCT2,
+                X_V,X_V_2,L,totalL,fungsiObjectif, LT,totalLT,newMember,totalNewMember);
 
 
 
-
-
+    }
 }

@@ -31,7 +31,7 @@ public class Main {
 
         }
     }*/
-        double[][] parameter = {{1,3,4,5,1,4,1,2},{3,3,3,3,2,2,1,1},{3,3,3,3,2,2,1,1}};
+       /* double[][] parameter = {{1,3,4,5,1,4,1,2},{3,3,3,3,2,2,1,1},{3,3,3,3,2,2,1,1}};
 
         double[][] clusterCenter = {{3.40991807754292,2.33574147612847,2.33574147612847},{1.34179859453818,1.50833234579143,1.50833234579143},{5.00515195226415,3.88937578414276,3.88937578414276}};
 
@@ -46,9 +46,9 @@ public class Main {
                 for (int j = 0; j < 8; j++) {
                     X_V[y][x][j] = Math.pow((parameter[y][j] - clusterCenter[x][y]),weight);
                     //X_V[y][x][j] = Math.pow((parameter[y][j] - clusterCenter[x][y]),weight);
-                    /*X_V[x][j] = Math.pow((parameter[y][j] - clusterCenter[x][y]),weight)+Math.pow((parameter[1][j] - clusterCenter[x][1]),weight);
+                    *//*X_V[x][j] = Math.pow((parameter[y][j] - clusterCenter[x][y]),weight)+Math.pow((parameter[1][j] - clusterCenter[x][1]),weight);
                     X_V[1][j] = Math.pow((parameter[0][j] - clusterCenter[1][0]),weight)+Math.pow((parameter[1][j] - clusterCenter[1][1]),weight);
-                    X_V[2][j] = Math.pow((parameter[0][j] - clusterCenter[2][0]),weight)+Math.pow((parameter[1][j] - clusterCenter[2][1]),weight);*/
+                    X_V[2][j] = Math.pow((parameter[0][j] - clusterCenter[2][0]),weight)+Math.pow((parameter[1][j] - clusterCenter[2][1]),weight);*//*
                     System.out.println("X_V["+ y +"]["+ x +"]["+ j +"] = "+X_V[y][x][j]);
                 }
                 System.out.println();
@@ -80,7 +80,7 @@ public class Main {
                 System.out.println("X_V["+ x +"]["+ j +"] = "+X_V_2[x][j]);
             }
             System.out.println();
-        }
+        }*/
 
 
 
@@ -108,5 +108,7 @@ public class Main {
                             miuKuadratX1[4][j] = randomValueRotate[2][j] * parameter[0][j];
                             miuKuadratX1[5][j] = randomValueRotate[2][j] * parameter[1][j];
                         }*/
+
+
     }
 }
